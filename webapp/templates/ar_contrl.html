@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Serial Arduino</title>
+    <meta charset="utf-8">
+
+    <style type="text/css">
+
+    body {
+  	background-color:#EEEEEE;
+  	}
+
+    .red_n_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #ff82b2;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+    }
+    .red_n_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+    }
+
+
+    .red_f_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #ff82b2;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+    }
+    .red_f_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+    }
+
+
+    .blue_n_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #668ad8;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+    }
+    .blue_n_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+    }
+
+
+    .blue_f_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #668ad8;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+    }
+    .blue_f_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+    }
+
+
+    .m_n_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #78ff94;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+    }
+    .m_n_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+    }
+
+
+    .m_f_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #78ff94;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+    }
+    .m_f_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+    }
+
+
+    h1 {
+    border-bottom: solid 3px #DDDDDD;
+    position: relative;
+    }
+
+    h1:after {
+    position: absolute;
+    content: " ";
+    display: block;
+    border-bottom: solid 3px #000000;
+    bottom: -3px;
+    width: 20%;
+    }
+
+
+    p {
+    position: relative;/*相対位置*/
+    line-height: 1.4;/*行高*/
+    display: inline-block;
+    }
+
+    p:before,p:after{
+    position: relative;
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    font-size: 1.0em;
+    color: #000000;
+    }
+    p:before{
+      content:"\03c";/*アイコン種類*/
+      padding-right: 0.5em
+    }
+    p:after{
+    content:"\03e";/*アイコン種類*/
+    padding-left: 0.5em
+    }
+    </style>
+    <script type="text/javascript" src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <link rel="stylesheet" href="/static/prettify.css" type="text/css">
+  </head>
+  <body>
+    <h1>Arduino Controller</h1>
+    <p>LED Switch</p>
+    <form method="post">
+      <button class="red_n_btn" name="post_value" value="REDLEDON">RED LED ON</button>
+    </form>
+    <form method="post">
+      <button class="red_f_btn" name="post_value" value="REDLEDOFF">RED LED OFF</button>
+    </form>
+    <form method="post">
+      <button class="blue_n_btn" name="post_value" value="BLUELEDON">BLUE LED ON</button>
+    </form>
+    <form method="post">
+      <button class="blue_f_btn" name="post_value" value="BLUELEDOFF">BLUE LED OFF</button>
+    </form>
+    <p>Motor Switch</p>
+    <form method="post">
+      <button class="m_n_btn" name="post_value" value="MOTORON">MOTOR ON</button>
+    </form>
+    <form method="post">
+      <button class="m_f_btn" name="post_value" value="MOTOROFF">MOTOR OFF</button>
+    </form>
+
+    <p>Source Code</p>
+    <script src="../js/prettify.js"></script>
+    <script src="../js/lang-css.js"></script>
+    <!-- prettyPrint()関数を実行するため追加↓ -->
+    <script>prettyPrint();</script>
+
+    <div class="module_code">▼ Arduino Code .ino</div>
+    <pre class="prettyprint">
+    void setup(){
+        pinMode(8,OUTPUT); //RED LED
+        pinMode(12,OUTPUT);//BLUE LED
+        pinMode(7,OUTPUT); //MOTOR
+
+        Serial.begin(9600); //通信速度
+    }
+
+    void loop(){
+        int inputchar;
+        inputchar = Serial.read();
+
+        if(inputchar!=-1){
+          switch(inputchar){
+            case 'a':
+              digitalWrite(12,HIGH);
+              break;
+            case 'b':
+              digitalWrite(12,LOW);
+              break;
+            case 'c':
+              digitalWrite(8,HIGH);
+              break;
+            case 'd':
+              digitalWrite(8,LOW);
+              break;
+            case 'e':
+              digitalWrite(7,HIGH);
+              break;
+            case 'f':
+              digitalWrite(7,LOW);
+              break;
+            }
+        }
+    }
+    </pre>
+    <div class="module_code">▼ python Code .py</div>
+    <pre class="prettyprint">
+    from flask import Flask, render_template, request
+    import serial
+    from time import sleep
+
+    app = Flask(__name__)
+    @app.route('/')
+    def index()->str:
+      return render_template('getpost.html')
+
+    @app.route('/', methods=['POST'])
+      def red()->str:
+      with serial.Serial("/dev/cu.usbmodem1421",9600,timeout=1) as ser:
+          sleep(2)
+          while True:
+              res = request.form['post_value']
+              if res == 'REDLEDON':
+                  flag = bytes('a','utf-8')
+                  ser.write(flag)
+
+              elif res == 'REDLEDOFF':
+                  flag = bytes('b','utf-8')
+                  ser.write(flag)
+
+              elif res == 'BLUELEDON':
+                  flag = bytes('c','utf-8')
+                  ser.write(flag)
+
+              elif res == 'BLUELEDOFF':
+                  flag = bytes('d','utf-8')
+                  ser.write(flag)
+
+              elif res == 'MOTORON':
+                  flag = bytes('e','utf-8')
+                  ser.write(flag)
+
+              elif res == 'MOTOROFF':
+                  flag = bytes('f','utf-8')
+                  ser.write(flag)
+
+              return render_template('getpost.html')
+      ser.close()
+
+      if __name__ == '__main__':
+          app.run(port = 8080)
+
+    </pre>
+    <div class="module_code">▼ HTML .html</div>
+    <pre class="prettyprint">
+    <code><math><![CDATA[
+    <!DOCTYPE html>
+    <html lang="ja">
+      <head>
+        <title>Serial Arduino</title>
+        <meta charset="utf-8">
+        <style type="text/css">
+        body {
+        background-color:#EEEEEE;
+        }
+
+        .red_n_btn{
+        display: inline-block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        background: #ff82b2;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+        border-radius: 3px;
+        }
+        .red_n_btn:active {/*ボタンを押したとき*/
+        -ms-transform: translateY(4px);
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);/*下に動く*/
+        border-bottom: none;/*線を消す*/
+        }
+
+
+        .red_f_btn{
+        display: inline-block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        background: #ff82b2;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+        border-radius: 3px;
+        }
+        .red_f_btn:active {/*ボタンを押したとき*/
+        -ms-transform: translateY(4px);
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);/*下に動く*/
+        border-bottom: none;/*線を消す*/
+        }
+
+
+        .blue_n_btn{
+        display: inline-block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        background: #668ad8;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+        border-radius: 3px;
+        }
+        .blue_n_btn:active {/*ボタンを押したとき*/
+        -ms-transform: translateY(4px);
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);/*下に動く*/
+        border-bottom: none;/*線を消す*/
+        }
+
+
+        .blue_f_btn{
+        display: inline-block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        background: #668ad8;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+        border-radius: 3px;
+        }
+        .blue_f_btn:active {/*ボタンを押したとき*/
+        -ms-transform: translateY(4px);
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);/*下に動く*/
+        border-bottom: none;/*線を消す*/
+        }
+
+
+        .m_n_btn{
+        display: inline-block;
+  　    padding: 0.5em 1em;
+        text-decoration: none;
+        background: #78ff94;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+        border-radius: 3px;
+        }
+        .m_n_btn:active {/*ボタンを押したとき*/
+        -ms-transform: translateY(4px);
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);/*下に動く*/
+        border-bottom: none;/*線を消す*/
+        }
+
+
+        .m_f_btn{
+        display: inline-block;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        background: #78ff94;/*ボタン色*/
+        color: #FFF;
+        border-bottom: solid 4px #627295;
+        border-radius: 3px;
+        }
+        .m_f_btn:active {/*ボタンを押したとき*/
+        -ms-transform: translateY(4px);
+        -webkit-transform: translateY(4px);
+        transform: translateY(4px);/*下に動く*/
+        border-bottom: none;/*線を消す*/
+        }
+
+
+        h1 {
+        border-bottom: solid 3px #DDDDDD;
+        position: relative;
+        }
+        h1:after {
+        position: absolute;
+        content: " ";
+        display: block;
+        border-bottom: solid 3px #000000;
+        bottom: -3px;
+        width: 20%;
+        }
+
+
+        p {
+        position: relative;/*相対位置*/
+        line-height: 1.4;/*行高*/
+        display: inline-block;
+        }
+
+        p:before,p:after{
+        position: relative;
+        font-family: "Font Awesome 5 Free";
+        display: inline-block;
+        font-size: 1.0em;
+        color: #000000;
+        }
+        p:before{
+        content:"\03c";/*アイコン種類*/
+        padding-right: 0.5em
+        }
+        p:after{
+        content:"\03e";/*アイコン種類*/
+        padding-left: 0.5em
+        }
+        </style>
+        <script type="text/javascript" src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+        <link rel="stylesheet" href="/static/prettify.css" type="text/css">
+        </head>
+        <body>
+          <h1>Arduino Controller</h1>
+          <p>LED Switch</p>
+          <form method="post">
+            <button class="red_n_btn" name="post_value" value="REDLEDON">RED LED ON</button>
+          </form>
+          <form method="post">
+            <button class="red_f_btn" name="post_value" value="REDLEDOFF">RED LED OFF</button>
+          </form>
+          <form method="post">
+            <button class="blue_n_btn" name="post_value" value="BLUELEDON">BLUE LED ON</button>
+          </form>
+          <form method="post">
+            <button class="blue_f_btn" name="post_value" value="BLUELEDOFF">BLUE LED OFF</button>
+          </form>
+          <p>Motor Switch</p>
+          <form method="get">
+            <button class="m_n_btn" name="post_value" value="MOTORON">MOTOR ON</button>
+          </form>
+          <form method="post">
+            <button class="m_f_btn" name="post_value" value="MOTOROFF">MOTOR OFF</button>
+          </form>
+        </body>
+    </html>
+    ]]></math></code>
+    </pre>
+  </body>
+</html>
